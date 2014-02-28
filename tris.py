@@ -4,7 +4,11 @@ import itertools
 
 
 class End(Exception):
-
+    """
+An Event thet gets raised when the game comes to an end.
+why =      0  if tie. (default value)
+      1 or 2  if player 1 or player 2 won.
+    """
     def __init__(self, why=0):
         self.why = why
 
@@ -16,7 +20,9 @@ class End(Exception):
 
 
 class Error(UserWarning):
-
+    """
+    Generical kind of Warning,
+    """
     def __init__(self, espressione, messaggio):
         self.expr = espressione
         self.str = messaggio
@@ -26,7 +32,10 @@ class Error(UserWarning):
 
 
 class partita(object):
-
+    """
+    Init class of the game, the two player's symbol can be costumized by
+    passing them to the __init__(p1="X",p2="O")
+    """
     def __init__(self, p1="X", p2="O"):
         self.field = field()
         player1 = human(player=1, symbol=p1, field=self.field)
@@ -99,6 +108,12 @@ class partita(object):
         return True
 
     def __store_history(self):
+        """
+It stores the whole history of the game in self.History,
+a list of tuples of (why the game ended, (the sequence of the moves
+that brought to the end) )
+[((End.why), (alternated moves of the two players))]
+        """
         def zip_alternated(it1, it2):
             for el1, el2 in itertools.izip_longest(it1, it2):
                 yield el1
@@ -109,6 +124,10 @@ class partita(object):
                                             self.p[2].history)]))
 
     def __save_history(self):
+        """
+At the moment it just print the whole self.History stored.
+So it prints the sum of every game that has been played.
+        """
         print (self.History)
 
     def __reset_game(self):
@@ -118,11 +137,22 @@ class partita(object):
 
 
 class AI(object):
+    """
+To be implemented
+    """
     pass
 
 
 class human(object):
-
+    """
+The class of the human player, so it has the methods to ask for a move,
+that gets stored in self.move as a tuple and appended to the personal history
+of the player and the method to ask the player if he wants to play again.
+To check if the move has not already been used, the field should be passed as
+with the number of the player and the symbol he'll use,
+like that: (player="1",symbol="X",field="self.field")
+//self.field is setted to None as default !!
+    """
     def __init__(self, player=1, symbol="X", field=None):
         self.field = field
         self.player = player
@@ -155,14 +185,13 @@ class human(object):
 
 
 class field(object):
-
+    """
+Classe del campo da gioco
+    """
     def __init__(self):
-        # self.coord = [(x, y) for x in xrange(3) for y in xrange(3)]
         self.field = {}
         self.coord = list(itertools.product(xrange(3), repeat=2))
         self.field.update(dict.fromkeys(self.coord, " "))
-        # for coord in self.coord:
-            # self.field[coord] = " "
 
     def _reinit(self):
         self.field.update(dict.fromkeys(self.coord, " "))
