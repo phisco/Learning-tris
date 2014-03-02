@@ -122,6 +122,8 @@ that brought to the end) )
                             [move for move in
                              zip_alternated(self.p[1].history,
                                             self.p[2].history)]))
+        for x in range(1, 3):
+            self.p[x].history = []
 
     def __save_history(self):
         """
@@ -193,7 +195,7 @@ Classe del campo da gioco
         self.coord = list(itertools.product(xrange(3), repeat=2))
         self.field.update(dict.fromkeys(self.coord, " "))
 
-    def _reinit(self):
+    def reinit(self):
         self.field.update(dict.fromkeys(self.coord, " "))
 
     def __iter__(self):
