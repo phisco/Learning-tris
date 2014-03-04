@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import itertools
+import pickle
+import random
 
 
 class End(Exception):
@@ -122,12 +124,18 @@ that brought to the end) )
                             [move for move in
                              zip_alternated(self.p[1].history,
                                             self.p[2].history)]))
+        for x in range(1, 3):
+            self.p[x].history = []
 
     def __save_history(self):
         """
-At the moment it just print the whole self.History stored.
 So it prints the sum of every game that has been played.
+FILE will be the list "history" pickled to a file
+History is appended (the aim is to have "historical" memory)
         """
+        savefile = open("savefile.p", "ab")
+        pickle.dump(self.History, savefile)
+        savefile.close()
         print (self.History)
 
     def __reset_game(self):
@@ -136,13 +144,6 @@ So it prints the sum of every game that has been played.
         self.turno = [1, 0]
         for x in range(1, 3):
             self.p[x].history = []
-
-
-class AI(object):
-    """
-To be implemented
-    """
-    pass
 
 
 class human(object):
@@ -176,7 +177,7 @@ like that: (player="1",symbol="X",field="self.field")
                 raise Error("Coord_used", "coordinate gia' usate")
             else:
                 self.move = (x, y)
-                self.history.append(self.move)
+                self.store_p_history(self.move)
         except ValueError:
             print("Remember to write only the two coordinates, "
                   "separated by a comma.\nLike that: x,y")
@@ -184,6 +185,42 @@ like that: (player="1",symbol="X",field="self.field")
         except Error:
             print("The coordinates you have passed are wrong")
             self.ask_move()
+
+    def store_p_history(self, coord):
+        self.history.append(self.coord)
+
+
+class AI(object, human):
+    """
+inherit the __init__ and store personal history from human
+only ask_to_play and ask_move must be overloaded
+_choose_move must be implemented
+To be implemented
+    """
+    def play(self):
+        pass
+
+    def ask_move(self):
+        """
+Actually, it doesn't ask anything :)
+        """
+        while True:
+            x, y = random.sample([0, 1, 2], 2)
+            if self.field[(x, y)] is " ":
+                self.move = (x, y)
+                self.history.append(self.move)
+                break
+
+    def _choose_move(self):
+        """
+choose the move to play, must be implemented
+        """
+
+    def ask_to_play(self):
+        """
+Or true or based on a counter ???
+        """
+        return True
 
 
 class field(object):
@@ -209,9 +246,10 @@ Classe del campo da gioco
         self.field[key] = val
 
     def visualizza(self):
+        print('      1    2    3     ')
         for x in range(len(self.coord)/3):
-            print(" ----------------- ")
-            print(" |", end="")
+            print("   ----------------- ")
+            print(x+1, " |", end="")
             for y in range(len(self.coord)/3):
                 print("| ", end="")
                 print(self.field[(x, y)], end="")
@@ -219,7 +257,7 @@ Classe del campo da gioco
             else:
                 print("|")
         else:
-            print(" ----------------- ")
+            print("   ----------------- ")
 
 
 if __name__ == "__main__":
