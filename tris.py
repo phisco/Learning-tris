@@ -126,13 +126,13 @@ that brought to the end) )
             self.p[x].history = []
 
         def __save_history(self):
-        """
-At the moment it just print the whole self.History stored.
-So it prints the sum of every game that has been played.
-
-FILE will be the list "history" pickled to a file
-History is appended (the aim is to have "historical" memory)
-        """
+            """
+    At the moment it just print the whole self.History stored.
+    So it prints the sum of every game that has been played.
+    
+    FILE will be the list "history" pickled to a file
+    History is appended (the aim is to have "historical" memory)
+            """
         
         savefile = open("savefile.p", "ab")
         pickle.dump(self.History, savefile)
