@@ -151,7 +151,14 @@ To be implemented
     """
     STUB
     """
-    def play (self):
+    def __init__(self, player = 2, symbol = 'O', field = None):
+        self.field = field
+        self.player = player
+        self.symbol = symbol
+        self.move = ()
+        self.history = []
+    
+    def make_move (self):
         while True:
             x, y = random.sample([0,1,2], 2)
             if self.field[(x, y)] is " ":
@@ -161,7 +168,6 @@ To be implemented
         
         
         
-    pass
 
 
 class human(object):
