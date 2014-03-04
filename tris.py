@@ -143,13 +143,12 @@ that brought to the end) )
         self.turno = [1, 0]
 
 
-class AI(object):
+class AI(object,human):
     """
+    inherit the __init__ and store personal history from human
+    only ask_to_play and ask_move must be overloaded
+    _choose_move must be implemented
 To be implemented
-    """
-    
-    """
-    STUB
     """
     def play (self):
         while True:
@@ -158,10 +157,24 @@ To be implemented
                 self.move = (x, y)
                 self.history.append(self.move)
                 break   
-        
-        
-        
-    pass
+
+    def _choose_move(self):
+        """
+choose the move to play, must be implemented
+        """
+
+    def ask_to_play(self):
+        """
+Or true or based on a counter ???
+        """
+        return True
+
+    def ask_move(self):
+        """
+To be implemented
+        """
+        pass
+
 
 
 class human(object):
@@ -195,7 +208,7 @@ like that: (player="1",symbol="X",field="self.field")
                 raise Error("Coord_used", "coordinate gia' usate")
             else:
                 self.move = (x, y)
-                self.history.append(self.move)
+                self.store_p_history(self.move)
         except ValueError:
             print("Remember to write only the two coordinates, "
                   "separated by a comma.\nLike that: x,y")
@@ -203,6 +216,9 @@ like that: (player="1",symbol="X",field="self.field")
         except Error:
             print("The coordinates you have passed are wrong")
             self.ask_move()
+
+    def store_p_history(self, coord):
+        self.history.append(self.coord)
 
 
 class field(object):
