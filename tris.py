@@ -150,10 +150,9 @@ class AI(object,human):
     _choose_move must be implemented
 To be implemented
     """
-<<<<<<< HEAD
     def play (self):
-=======
-    
+        pass
+
     """
     STUB
     """
@@ -165,14 +164,12 @@ To be implemented
         self.history = []
     
     def make_move (self):
->>>>>>> 15745bbc19faab1fc9f7d1edfd4355cb213b7d83
         while True:
             x, y = random.sample([0,1,2], 2)
             if self.field[(x, y)] is " ":
                 self.move = (x, y)
                 self.history.append(self.move)
                 break   
-<<<<<<< HEAD
 
     def _choose_move(self):
         """
@@ -190,13 +187,6 @@ Or true or based on a counter ???
 To be implemented
         """
         pass
-
-=======
-        
-        
-        
->>>>>>> 15745bbc19faab1fc9f7d1edfd4355cb213b7d83
-
 
 class human(object):
     """
