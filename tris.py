@@ -2,7 +2,7 @@
 from __future__ import print_function
 import itertools
 import pickle
-
+import random
 class End(Exception):
     """
 An Event thet gets raised when the game comes to an end.
@@ -147,6 +147,20 @@ class AI(object):
     """
 To be implemented
     """
+    
+    """
+    STUB
+    """
+    def play (self):
+        while True:
+            x, y = random.sample([0,1,2], 2)
+            if self.field[(x, y)] is " ":
+                self.move = (x, y)
+                self.history.append(self.move)
+                break   
+        
+        
+        
     pass
 
 
@@ -214,9 +228,10 @@ Classe del campo da gioco
         self.field[key] = val
 
     def visualizza(self):
+        print('      1    2    3     ')
         for x in range(len(self.coord)/3):
-            print(" ----------------- ")
-            print(" |", end="")
+            print("   ----------------- ")
+            print(x+1, " |", end="")
             for y in range(len(self.coord)/3):
                 print("| ", end="")
                 print(self.field[(x, y)], end="")
@@ -224,7 +239,7 @@ Classe del campo da gioco
             else:
                 print("|")
         else:
-            print(" ----------------- ")
+            print("   ----------------- ")
 
 
 if __name__ == "__main__":
