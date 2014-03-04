@@ -10,5 +10,11 @@ while True:
         recovered_history += (pickle.load(savefile))
     except EOFError:
         break
-    
-print recovered_history
+
+i = 0
+while True:
+    try:
+        print recovered_history[i]
+        i+=1
+    except IndexError:
+        break
