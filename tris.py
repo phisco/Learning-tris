@@ -122,8 +122,6 @@ that brought to the end) )
                             [move for move in
                              zip_alternated(self.p[1].history,
                                             self.p[2].history)]))
-        for x in range(1, 3):
-            self.p[x].history = []
 
     def __save_history(self):
         """
@@ -136,6 +134,8 @@ So it prints the sum of every game that has been played.
         self.field.reinit()
         self.End.clear()
         self.turno = [1, 0]
+        for x in range(1, 3):
+            self.p[x].history = []
 
 
 class AI(object):
