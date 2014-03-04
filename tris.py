@@ -163,7 +163,7 @@ To be implemented
         self.move = ()
         self.history = []
     
-    def make_move (self):
+    def ask_move (self): #Actually, it doesn't ask anything :)
         while True:
             x, y = random.sample([0,1,2], 2)
             if self.field[(x, y)] is " ":
@@ -181,12 +181,6 @@ choose the move to play, must be implemented
 Or true or based on a counter ???
         """
         return True
-
-    def ask_move(self):
-        """
-To be implemented
-        """
-        pass
 
 class human(object):
     """
