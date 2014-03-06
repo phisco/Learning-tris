@@ -12,9 +12,17 @@ while True:
         break
 
 i = 0
+print ''
 while True:
     try:
-        print recovered_history[i]
+        if(recovered_history[i][0] != 0):
+            print "Player",recovered_history[i][0], "won."
+        else:
+            print "The game was a draw."
+
+        
+        print "The moves were: ", recovered_history[i][1]
+        print ''
         i+=1
     except IndexError:
         break
